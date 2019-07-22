@@ -11,7 +11,7 @@
 	<script type="text/javascript" src="http://ds.serving-sys.com/BurstingScript/adKit/adkit.js"></script>
 
 	<!-- COMMENT THIS LINE OUT PRIOR TO UPLOADING / UNCOMMENT FOR LOCAL TESTING ONLY -->
-	<!-- <script type="text/javascript" src="scripts/localPreview.js"></script> -->
+	<script type="text/javascript" src="scripts/localPreview.js"></script>
 </head>
 
 <body>
@@ -54,7 +54,7 @@ body{
 /* -----> GENERAL <----- */
 /* --------------------- */
 #adWrapper{
-    width: 100%;
+    /*width: 100%;
     height: 100%;
     position: absolute;
     top: 0px;
@@ -66,20 +66,21 @@ body{
     -ms-user-select: none;
     user-select: none;
     visibility: hidden;
-    opacity: 0;
+    opacity: 0;*/
+	overflow: hidden;
 }
 
 #adContainer{
-    width: 100%;
+    /*width: 100%;
     height: 100%;
     /*height: 0;
-    padding-top: calc(3 / 2 * 100%);*/
+    padding-top: calc(3 / 2 * 100%);
     position: absolute;
     top: 0px;
     left: 0;
     right: 0;
     margin: auto;
-    background-color: #FFF;
+    background-color: #FFF;*/
     cursor: pointer;
     font-family: "Proxima N W01 Reg";
     -webkit-font-smoothing: antialiased;
@@ -92,11 +93,11 @@ body{
 /* -----> MAIN CONTENT AREA <----- */
 /* ------------------------------- */
 #contentContainer{
-    width: 100%;
+    /*width: 100%;
     height: 100%;
     position: absolute;
     top: 0px;
-    left: 0px;
+    left: 0px;*/
 }
 
 #mobileBgImg{
