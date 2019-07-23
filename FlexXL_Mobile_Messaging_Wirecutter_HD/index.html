@@ -12,6 +12,8 @@
 
 	<!-- COMMENT THIS LINE OUT PRIOR TO UPLOADING / UNCOMMENT FOR LOCAL TESTING ONLY -->
 	<script type="text/javascript" src="scripts/localPreview.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
+
 </head>
 
 <body>
@@ -303,10 +305,12 @@ body{
 					<div id="mobileCopyContainer">
 						<div id="mobileHeadlineCopy"></div>
 						<div id="mobileDescriptorCopy"></div>
+						<div id="price">Price Here</div>
 					</div>
 		            <div id="mobileCta">
 		                <div id="mobileCtaCopy">PLACEHOLDER</div>
 		            </div>
+					<div id="disclaimer"></div>
                     <div id="mobileContentContainer">
                     </div>
 				</div>
@@ -321,6 +325,26 @@ body{
 </div>
 
 <script type="text/javascript">
+
+// WIRECUTTER Api Request/parseing JSON
+axios({
+    //url: 'shttps://dog.ceo/api/breeds/list/all',
+	url: 'https://storage.googleapis.com/nyt-ads-static-assets/ads/adplatforms/HD_Source_150080.json',
+    method: 'get',
+})
+
+;(async () => {
+  let response = await axios({
+ // url: 'https://dog.ceo/api/breeds/list/all',
+ url: 'https://storage.googleapis.com/nyt-ads-static-assets/ads/adplatforms/HD_Source_150080.json',
+  method: 'get',  
+  })
+
+var x = response.data["data"][0]["attributes"]["price"]["raw_formatted"];
+  console.log(response.data["data"][0]["attributes"]["price"]["raw_formatted"]);
+     document.getElementById("price").innerHTML = x;
+
+})()
 
 /*------------------------*/
 /*-----> VARIABLES  <-----*/
@@ -364,14 +388,14 @@ var creativeConfigObj = {
 	floodColor: "#000",
 
 	// background image optimal size = 2:3 aspect ratio. Images will be set to 100% stretched/cropped as required.
-	backgroundImageURL: "images/bg.jpg",
+	backgroundImageURL: "images/image.png",
 
 	// Only the logo src URL and height are required.
 	// With will adjust as required to accomidate the height listed.
 	// Logo is set to a fixed 15px left and top padding as requested in creative specs.
 	// If logo is not requred set to blank string or null.
 	logo: {
-		logoURL: "images/logo.png"
+		logoURL: "images/logohomedepot.png"
 	},
 
 	// headline = 3 lines max.
@@ -386,7 +410,11 @@ var creativeConfigObj = {
 		description: {
 			copy: "Descriptor copy here </br> 2 lines max",
 			color: "#FFF"
-		}
+		},
+			disclaimer: {
+        	copy: "When you buy through this link, Wirecutter may earn an affilliate <br> commission. Learn more",
+        	color: "#000000"
+       }
 	},
 
 	// Mobile layout CTA will auto size in both width and height with a max width of the unit current width - 30px ( 15px padding from creative edges required per creative specs x2 ).
@@ -535,7 +563,23 @@ function setCreativeElements() {
 		document.getElementById("bgGrad").style.display = "block";
 		document.getElementById("mobileDescriptorCopy").style.display = "table";
 	}
+
+
+	if (creativeConfigObj.copy.disclaimer.copy !== "" && creativeConfigObj.copy.disclaimer.copy !== null) {
+		document.getElementById("disclaimer").innerHTML = creativeConfigObj.copy.disclaimer.copy;
+
+		if (creativeConfigObj.copy.disclaimer.color !== "" && creativeConfigObj.copy.disclaimer.color !== null) {
+			document.getElementById("disclaimer").style.color = creativeConfigObj.copy.disclaimer.color;
+		}
+
+		document.getElementById("bgGrad").style.display = "block";
+		document.getElementById("mobileDescriptorCopy").style.display = "table";
+	}
 }
+
+
+
+
 
 // Size creative area per available total area so 2:3 aspect ratio creative content will not overflow the available screen space.
 // The parameter "data" will be populated only by the response from the custom scripts "creativeResize" event.  When calling this function from manually pass "null".  When accessing the "data" parameter make sure to do a check its existance prior to accessing.
